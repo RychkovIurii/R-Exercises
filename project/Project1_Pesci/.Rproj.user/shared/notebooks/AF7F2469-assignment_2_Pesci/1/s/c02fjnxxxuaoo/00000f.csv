@@ -1,0 +1,7 @@
+"0","rus_income_and_age <- lits_subset %>%"
+"0","  filter(country == 'Russia')"
+"0",""
+"0","ggplot(rus_income_and_age) +"
+"0","  aes(x = age_pr, y = household_income) +"
+"0","  geom_point()"
+"0",""

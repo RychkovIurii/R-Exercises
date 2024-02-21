@@ -1,0 +1,28 @@
+---
+title: "Using R Markdown templates"
+author: "Eugenia Pesci"
+date: "2023-03-28"
+output: html_document
+---
+
+
+```{r}
+library(tidyverse)
+
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r}
+flavors_df <- read.csv("flavors_of_cacao.csv")
+
+trimmed_flavors_df <- flavors_df %>%
+  select(Rating, Cocoa.Percent, Company.Location)
+trimmed_flavors_df
+
+
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

@@ -1,0 +1,8 @@
+"0","vdem_mean_libdem_historical <- "
+"0"," vdem %>% "
+"0"," group_by(country_name) %>% "
+"0"," summarise(mean_libdem = mean(v2x_libdem)) %>% "
+"0"," arrange(desc(mean_libdem)) %>% "
+"0"," drop_na()"
+"0","vdem_mean_libdem_historical %>% "
+"0"," head(3)"

@@ -1,0 +1,4 @@
+"0","ggplot(putins_approval) +"
+"0","  aes(x = date, y = percentage, color = approval) +"
+"0","  geom_line()"
+"0",""

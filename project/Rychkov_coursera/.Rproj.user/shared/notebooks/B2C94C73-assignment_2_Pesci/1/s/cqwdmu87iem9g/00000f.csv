@@ -1,0 +1,7 @@
+"0",""
+"0","# Import LiTS data"
+"0","lits_subset <- here(""lits_subset.csv"") %>%"
+"0","  read.csv()"
+"2","Warning: cannot open file 'E:/EugeniaR/project/Rychkov_coursera/lits_subset.csv': No such file or directory"
+"2","Error in file(file, ""rt"") : cannot open the connection
+"

@@ -1,0 +1,147 @@
+---
+title: "assignment_2_Pesci"
+author: "Iurii Rychkov"
+date: "2023-03-24"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+#install.packages("extrafont")
+```
+
+
+```{r}
+library(tidyverse)
+library(here)
+library(ggthemes)
+library(extrafont)
+
+#font_install()
+#loadfonts(device = "win")
+```
+
+
+## Import the data
+
+```{r}
+
+# Import LiTS data
+lits_subset <- here("lits_subset.csv") %>%
+  read.csv()
+
+# Import Putin's approval ratings data
+putins_approval <- here("levada_president_longer.csv") %>%
+  read.csv() %>%
+  mutate(date = ymd(date))
+
+# Import updated V-Dem data
+vdem_upd <- here("vdem_subset_upd.csv") %>%
+  read.csv()
+
+```
+
+## Assignment 1
+
+Answer the following questions:
+1. What can you say on the relationship between age_pr and household_income based on your scatter plot?
+Or can you say anything? There are no right or wrong answers, just use your own words about your first impression.
+2. Are there extreme values in the variables plotted? Extreme values are simply mean individual observations (here: points) that are far away from the rest of the observations.
+
+```{r}
+rus_income_and_age <- lits_subset %>%
+  filter(country == 'Russia')
+
+ggplot(rus_income_and_age) +
+  aes(x = age_pr, y = household_income) +
+  geom_point()
+
+```
+
+## Assignment 2
+
+Using the levada_president_longer.csv data, draw a line graph of Vladimir Putin’s approval ratings using
+ggplot() and geom_line() functions. 🧐
+Add the approval variable to your plot. Hint: good way to add categorical variables to ggplot() s (or plots
+in general) is to put categorical variable as color argument within the aes() function call. Check the
+gapminder plot example on Theme 2’s lecture slides if you are unsure what I’m talking about.
+
+```{r}
+
+ggplot(putins_approval) +
+  aes(x = date, y = percentage, color = approval) +
+  geom_line() +
+  labs(title = "Putin’s approval", 
+       x = "Date", 
+       y = "Percentage",
+       color = "Approval",) +
+  theme_fivethirtyeight() +
+  theme(axis.title = element_text(), 
+        text = element_text(family = "Microsoft New Tai Lue"), 
+        title = element_text(family = "Lucida Sans"), 
+        axis.text.y = element_text(size = 6))
+
+```
+
+## Assignment 3
+
+Bar plot with geom_col()
+
+
+```{r}
+lits_president_trust <- lits_subset %>%
+  drop_na(trust_president) %>%
+  group_by(country) %>%
+  summarise(mean_trust_president = mean(trust_president))
+
+ggplot(lits_president_trust) +
+  aes(y = reorder(country, + mean_trust_president),
+      x = mean_trust_president) +
+      geom_col()
+```
+## Assignment 4
+
+Histogram with geom_histogram(), and Density plot with geom_density()
+
+
+```{r}
+rus_income_and_age <- lits_subset %>%
+ filter(country == "Russia") %>%
+ filter(household_income < 210000) %>%
+ select(country, household_income, age_pr) %>%
+ drop_na()
+# Histogram of household income
+ggplot(rus_income_and_age) +
+ aes(x = household_income) +
+ geom_histogram()
+# Histogram of age
+ggplot(rus_income_and_age) +
+  aes(x = age_pr) +
+  geom_histogram()
+
+# Density plot of household income: draw below
+ggplot(rus_income_and_age) +
+  aes(x = household_income) +
+  geom_density()
+
+```
+
+## Assignment 5
+
+Boxplot with geom_boxplot()
+
+
+```{r}
+# Subset the data
+vdem_boxplot_corruption <- vdem_upd %>%
+ filter(year == "2022",
+ !is.na(country_group))
+ggplot(vdem_boxplot_corruption) +
+ aes(x = reorder(country_group, -v2x_corr), y = v2x_corr) +
+  geom_boxplot() +
+  labs(title = "Box Plot Example: Assignment 5",
+       x = "country_group")
+```

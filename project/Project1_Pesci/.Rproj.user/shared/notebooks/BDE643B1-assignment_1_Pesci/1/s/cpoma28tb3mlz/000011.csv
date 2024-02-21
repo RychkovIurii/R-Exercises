@@ -1,0 +1,4 @@
+"0","vdem_libdem_2022 <- vdem %>%"
+"0","  select(country_name, year, v2x_libdem) %>%"
+"0","  filter(year == ""2022"")"
+"0","vdem_libdem_2022"

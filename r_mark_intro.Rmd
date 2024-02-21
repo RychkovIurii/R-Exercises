@@ -1,0 +1,75 @@
+---
+title: "R mark intro"
+author: "Eugenia Pesci"
+date: "2023-03-28"
+output:
+  pdf_document: default
+  html_document: default
+---
+pdf_document – This creates a PDF file with LaTeX (an open source document layout system). If you don’t already have LaTeX, RStudio will automatically prompt you to install it.
+
+word_document – This creates a Microsoft Word document (.docx).
+
+odt_document – This creates an OpenDocument Text document (.odt).
+
+rtf_document – This creates a Rich Text Format document (.rtf).  
+
+md_document – This creates a Markdown document (which strictly conforms to the original Markdown specification)
+
+github_document – This creates a GitHub document which is a customized version of a Markdown document designed for sharing on GitHub.
+
+##Presentations
+You can also use R Markdown to produce presentations. Automatically inserting the results of your R code into a presentation can save you lots of time. 
+
+R Markdown renders files to specific presentation formats when you use the following output settings:
+
+beamer_presentation – for PDF presentations with beamer
+
+ioslides_presentation – for HTML presentations with ioslides
+
+slidy_presentation – for HTML presentations with Slidy
+
+powerpoint_presentation – for PowerPoint presentations
+
+revealjs : : revealjs_presentation – for HTML presentations with reveal.js (a framework for creating HTML presentations that requires the reveal.js package)
+
+
+## R Markdown
+
+* HTML
+* PDF
+* MS Word documents.
+
+When *you* click the **Knit** 
+
+click here [link](http://rmarkdown.rstudio.com).
+R Markdown see <http://rmarkdown.rstudio.com>.
+
+
+<!--comment ![Plot this way](URL-picture) -->
+
+`echo = FALSE`
+
+```{r loading packages}
+library(ggplot2)
+library(palmerpenguins)
+```
+
+
+inside the text```{r} and ```
+
+Win: ctrl+alt+i
+Mac: command+option+i
+
+
+## Visualizations
+Here we will go through a series of visualizations
+
+### Flipper and body mass in purple
+Here, we plot flipper lenght against body mass
+
+```{r}
+ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) + 
+  geom_point(color = 'purple')
+```
+

@@ -1,0 +1,4 @@
+"0","vdem %>% "
+"0"," count(country_name, name = ""total_obs"") %>% "
+"0"," arrange(desc(total_obs)) %>% "
+"0"," tail(6)"

@@ -1,0 +1,4 @@
+"0","vdem_libdem_2022 %>%"
+"0","  mutate(libdem_0_to_10 = v2x_libdem * 10) %>%"
+"0","  arrange(desc(libdem_0_to_10)) %>%"
+"0","  select(-v2x_libdem)"

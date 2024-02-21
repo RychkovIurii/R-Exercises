@@ -1,0 +1,4 @@
+"0","# Histogram of age"
+"0","ggplot(rus_income_and_age) +"
+"0","  aes(x = age_pr) +"
+"0","  geom_histogram()"

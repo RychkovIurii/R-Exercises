@@ -1,0 +1,168 @@
+---
+title: "Assignments Template"
+author: "Eugenia Pesci"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Packages
+
+*Always* activate the needed packages with `library()` function call when you start to write R code. Mostly, we will be using **tidyverse** (for data analyses) and **here** (for detecting where your files live) packages.
+
+```{r}
+library(tidyverse)
+library(here)
+```
+
+## Import the data
+
+```{r}
+vdem <- here("vdem_subset.csv") %>%
+  read.csv()
+
+```
+
+
+## Assignment 1
+How many variables and observations there are in the vdem data?
+
+Answer: There are 6 variables and 27555 observations in the vdem data.
+
+```{r}
+vdem %>% 
+  glimpse()
+
+```
+
+
+## Assignment 2
+Subset the vdem data to include only the variables country_name , year , and v2x_libdem and
+observations from year 2022. Create a new data frame for these data and name it as vdem_libdem_2022 .   
+
+
+```{r}
+vdem_libdem_2022 <- vdem %>%
+  select(country_name, year, v2x_libdem) %>%
+  filter(year == "2022")
+vdem_libdem_2022
+
+```
+
+
+## Assignment 3
+
+Find out which five countries score highest on liberal democracy index (column: v2x_libdem ) in the
+vdem_libdem_2022 data frame.
+
+Find out the number of unique liberal democracy index scores in vdem_libdem_2022 data frame.
+
+
+Answer:
+1	Denmark		    0.889	
+2	Sweden		    0.870	
+3	Norway	    	0.857	
+4	Switzerland		0.851	
+5	Estonia     	0.847	
+
+
+Answer: There are 161 distinct liberal democracy index scores in vdem_libdem_2022 data.
+ 
+
+```{r}
+vdem_libdem_2022 %>%
+ arrange(desc(v2x_libdem)) %>%
+  head(5)
+
+libdem_uniq <- vdem_libdem_2022 %>%
+  distinct(select(vdem_libdem_2022, v2x_libdem))
+libdem_uniq %>%
+  glimpse()
+
+```
+
+## Assignment 4
+
+Let’s imagine a following scenario: you’re working in a research project dealing with comparing the state of
+democracy across the world. You have discovered the V-Dem dataset and want to use the liberal democracy
+index data for year 2022 in the final report of the project. 
+Your boss likes the idea, but wants this scale to vary from 0 to 10 instead of 0 to 1, as in the original V-Dem data
+because other indices in the final report also vary from 0 to 10. Create a new variable libdem_0_to_10 that
+captures the liberal democracy index, but ranging from 0 to 10 instead of 0 to 1. 
+
+
+
+```{r}
+vdem_libdem_2022 %>%
+  mutate(libdem_0_to_10 = v2x_libdem * 10) %>%
+  arrange(desc(libdem_0_to_10)) %>%
+  select(-v2x_libdem)
+
+```
+
+## Assignment 5
+
+Calculate the mean and median for liberal democracy index in 2022.
+Calculate minimum and maximum years present in the vdem data.
+
+Answer: The mean for liberal democracy index in 2022 is 0.3857877.
+Answer: The median for liberal democracy index in 2022 is 0.365.
+
+Answer: minimum year present in the vdem data is 1789.
+Answer: maximum year present in the vdem data is 2022.
+
+
+```{r}
+
+summarise(vdem_libdem_2022, avg_mean_libdem = mean(v2x_libdem),
+          median_libdem = median(v2x_libdem))
+
+summarise(vdem, min_year = min(year),
+          max_year = max(year))
+
+```
+
+## Assignment 6
+
+Calculate mean liberal democracy index, v2x_libdem , by countries. Find out which are the top and bottom three countries on liberal democracy index. 
+
+Answer: The top 3 liberal democracies in vdem_mean_libdem_historical are Slovenia, Ireland, and Iceland.
+Answer: The 3 least liberal democratic countries in vdem_mean_libdem_historical are Eritrea, Ethiopia, and North Korea.
+
+```{r}
+vdem_mean_libdem_historical <- 
+ vdem %>% 
+ group_by(country_name) %>% 
+ summarise(mean_libdem = mean(v2x_libdem)) %>% 
+ arrange(desc(mean_libdem)) %>% 
+ drop_na()
+vdem_mean_libdem_historical %>% 
+ head(3)
+vdem_mean_libdem_historical %>% 
+ tail(3)
+
+
+```
+
+## Assignment 7
+
+Find out which six countries have the least observations in the whole vdem data.
+
+Answer:
+1. South Sudan	12	
+2. Kosovo	24
+3. Palestine/British Mandate	31
+4. Bosnia and Herzegovina	31
+5. North Macedonia	32	
+6. Ukraine	33	
+
+```{r}
+vdem %>% 
+ count(country_name, name = "total_obs") %>% 
+ arrange(desc(total_obs)) %>% 
+ tail(6)
+
+
+```

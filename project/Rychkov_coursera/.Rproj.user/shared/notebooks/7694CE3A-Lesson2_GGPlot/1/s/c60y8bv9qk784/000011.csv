@@ -1,0 +1,2 @@
+"0","hotel_bookings_city <- "
+"0","  filter(hotel_bookings, hotel_bookings$hotel==""City Hotel"")"

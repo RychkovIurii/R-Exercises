@@ -1,0 +1,28 @@
+---
+title: "How To Import Data to R"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Importing data to R
+
+```{r}
+# install.packages(tidyverse)
+# install.packages(here)
+
+library(tidyverse)
+library(here)
+
+# Import data to R
+gapminder <- here("gapminder.csv") %>% 
+  read.csv()
+
+# Print the imported data
+library(openxlsx)
+
+
+```
+

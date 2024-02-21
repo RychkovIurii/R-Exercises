@@ -1,0 +1,5 @@
+"0",""
+"0","# Density plot of household income: draw below"
+"0","ggplot(rus_income_and_age) +"
+"0","  aes(x = household_income) +"
+"0","  geom_density()"

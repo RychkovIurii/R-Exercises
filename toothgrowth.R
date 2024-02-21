@@ -1,0 +1,3 @@
+library(ggplot2) 
+data(ToothGrowth)
+select(ToothGrowth, -supp) %>% str(ToothGrowth)
